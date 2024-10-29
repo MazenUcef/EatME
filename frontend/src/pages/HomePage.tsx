@@ -1,4 +1,4 @@
-// import burger from '../assets/burger.jpg'
+import chees from '../assets/oh.gif'
 import menu from '../assets/menu.jpg'
 
 export const HomePage = () => {
@@ -12,7 +12,7 @@ export const HomePage = () => {
             </div>
             <div className="grid md:grid-cols-2 gap-5">
                 <img src={menu} className='rounded-lg h-[44rem]' alt='menu' />
-                {/* <img src={burger} className='rounded-lg' alt='burger' /> */}
+
                 <div className='flex flex-col items-center justify-center gap-4 text-center'>
                     <span className='font-bold text-secondaryy text-3xl'>
                         Order Takeaway Now Faster !
@@ -20,7 +20,7 @@ export const HomePage = () => {
                     <span className='font-semibold text-secondaryy'>
                         Order now and enjoy your meal at your doorstep.
                     </span>
-
+                    <img src={chees} className='rounded-lg' alt='burger' />
                 </div>
             </div>
         </div>
