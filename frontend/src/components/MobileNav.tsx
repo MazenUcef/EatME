@@ -1,5 +1,5 @@
 import { CircleUserRound, Menu } from "lucide-react"
-import { Sheet, SheetContent, SheetDescription, SheetTitle, SheetTrigger } from "./ui/sheet"
+import { Sheet, SheetContent, SheetTitle, SheetTrigger } from "./ui/sheet"
 import { Separator } from "@radix-ui/react-separator"
 import { Button } from "./ui/button"
 import { useAuth0 } from "@auth0/auth0-react"
@@ -30,7 +30,7 @@ export const MobileNav = () => {
                     }
                 </SheetTitle>
                 <Separator />
-                <SheetDescription className="flex">
+                <div className="flex">
                     {
                         isAuthenticated ?
                             (
@@ -46,7 +46,7 @@ export const MobileNav = () => {
                                 </Button>
                             )
                     }
-                </SheetDescription>
+                </div>
             </SheetContent>
         </Sheet>
     )
