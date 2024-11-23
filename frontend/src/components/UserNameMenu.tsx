@@ -16,6 +16,11 @@ export const UserNameMenu = () => {
             </DropdownMenuTrigger>
             <DropdownMenuContent className="bg-white p-5 space-y-5 rounded-lg">
                 <DropdownMenuItem>
+                    <Link to={'/manage-restaurant'} className="font-semibold hover:text-primaryy">
+                        Manage Restaurant
+                    </Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem>
                     <Link to={'/user-profile'} className="font-semibold hover:text-primaryy">
                         User Profile
                     </Link>

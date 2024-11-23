@@ -7,8 +7,10 @@ const createMyRestaurante = async (req: Request, res: any) => {
     try {
         const existingRestaurant = await Restaurant.findOne({ user: req.userId })
         if (existingRestaurant) {
-            return res.status(400).json({ message: "You already have a restaurant created" })
+            return res.status(409).json({ message: "You already have a restaurant created" })
         }
+        // console.log({user:req.userId});
+        
 
         const image = req.file as Express.Multer.File;
         const base64Image = Buffer.from(image.buffer).toString("base64");
