@@ -4,6 +4,7 @@ import PaginationSelector from "@/components/PaginationSelector";
 import SearchBar, { SearchForm } from "@/components/SearchBar";
 import SearchResultsCard from "@/components/SearchResultsCard";
 import SearchResultsInfo from "@/components/SearchResultsInfo";
+import SortOptionDropDown from "@/components/SortOptionDropDown";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useState } from "react";
 import { useParams } from "react-router-dom";
@@ -12,7 +13,8 @@ import { useParams } from "react-router-dom";
 export type SearchState = {
     searchQuery: string;
     page: number;
-    selectedCuisines: string[]
+    selectedCuisines: string[];
+    sortOption: string
 }
 const SearchPage = () => {
     const { city } = useParams()
@@ -20,11 +22,20 @@ const SearchPage = () => {
         searchQuery: "",
         page: 1,
         selectedCuisines: [],
+        sortOption: "bestMatch"
     });
 
     const [isExpanded, setIsExpanded] = useState<boolean>(false)
 
     const { results, isLoading } = useSearchRestaurant(searchState, city)
+
+    const setSortOption = (sortOption: string) => {
+        setSearchState((prev) => ({
+            ...prev,
+            sortOption,
+            page: 1,
+        }))
+    }
 
     const setSelectedCuisines = (selectedCuisines: string[]) => {
         setSearchState((prev) => ({
@@ -91,7 +102,10 @@ const SearchPage = () => {
                     placeHolder="Search By Cuisine"
                     onReste={resetSearch}
                 />
-                <SearchResultsInfo total={results.pagination.total} city={city} />
+                <div className="flex justify-between flex-col gap-3 lg:flex-row">
+                    <SearchResultsInfo total={results.pagination.total} city={city} />
+                    <SortOptionDropDown sortOptions={searchState.sortOption} onChange={(value) => setSortOption(value)} />
+                </div>
                 {results.data.map((restaurant, index) => (
                     <SearchResultsCard key={index} restaurant={restaurant} />
                 ))}

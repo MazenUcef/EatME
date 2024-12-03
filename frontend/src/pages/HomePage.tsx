@@ -1,5 +1,7 @@
 import chees from '../assets/oh.gif'
 import menu from '../assets/menu.jpg'
+import menu2 from '../assets/menu2.jpg'
+import menu4 from '../assets/menu4.jpg'
 import SearchBar, { SearchForm } from '@/components/SearchBar'
 import { useNavigate } from 'react-router-dom'
 
@@ -23,10 +25,14 @@ export const HomePage = () => {
                     onSubmit={handleSearchSubmit}
                 />
             </div>
-            <div className="grid md:grid-cols-2 gap-5">
+            <div className="grid md:grid-cols-3 gap-5">
                 <img src={menu} className='rounded-lg h-[44rem]' alt='menu' />
+                <img src={menu4} className='rounded-lg h-[44rem]' alt='menu' />
+                <img src={menu2} className='rounded-lg h-[44rem]' alt='menu' />
 
-                <div className='flex flex-col items-center justify-center gap-4 text-center'>
+
+            </div>
+            <div className='flex flex-col items-center justify-center gap-4 text-center'>
                     <span className='font-bold text-secondaryy text-3xl'>
                         Order Takeaway Now Faster !
                     </span>
@@ -35,7 +41,6 @@ export const HomePage = () => {
                     </span>
                     <img src={chees} className='rounded-lg' alt='burger' />
                 </div>
-            </div>
         </div>
     )
 }
