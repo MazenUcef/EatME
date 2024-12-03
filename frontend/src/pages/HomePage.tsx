@@ -1,7 +1,16 @@
 import chees from '../assets/oh.gif'
 import menu from '../assets/menu.jpg'
+import SearchBar, { SearchForm } from '@/components/SearchBar'
+import { useNavigate } from 'react-router-dom'
 
 export const HomePage = () => {
+    const navigate = useNavigate()
+
+    const handleSearchSubmit = (searchFormValues: SearchForm) => {
+        navigate({
+            pathname: `/search/${searchFormValues.searchQuery}`,
+        })
+    }
     return (
         <div className="flex flex-col gap-12">
             <div className="bg-secondaryy rounded-lg shadow-md py-8 flex flex-col gap-5 text-center -mt-16">
@@ -9,6 +18,10 @@ export const HomePage = () => {
                     Wanna Feed More !!
                 </h1>
                 <span className="text-xl text-white">Let's explore what do you like to Eat!!</span>
+                <SearchBar
+                    placeHolder='Search by City or Town'
+                    onSubmit={handleSearchSubmit}
+                />
             </div>
             <div className="grid md:grid-cols-2 gap-5">
                 <img src={menu} className='rounded-lg h-[44rem]' alt='menu' />
