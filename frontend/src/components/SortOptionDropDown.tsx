@@ -25,8 +25,9 @@ const SORT_OPTIONS = [
 const SortOptionDropDown = ({ onChange, sortOptions }: Props) => {
     const selectedSortLabel = SORT_OPTIONS.find((option) => option.value === sortOptions)?.label || SORT_OPTIONS[0].label
     return (
+        <div>
         <DropdownMenu>
-            <DropdownMenuTrigger className="cursor-pointer">
+            <DropdownMenuTrigger className="cursor-pointer" asChild>
                 <Button variant={"outline"} className="w-full">
                     Sort by: {selectedSortLabel}
                 </Button>
@@ -43,6 +44,7 @@ const SortOptionDropDown = ({ onChange, sortOptions }: Props) => {
                 ))}
             </DropdownMenuContent>
         </DropdownMenu>
+        </div>
 
     )
 }
