@@ -17,34 +17,38 @@ interface UpdateMyUserRequest {
 }
 
 export const useGetMyUser = () => {
-    const { getAccessTokenSilently } = useAuth0()
+    const { getAccessTokenSilently } = useAuth0();
 
-    const getMyUserRequest = async () : Promise<User> => {
+    const getMyUserRequest = async (): Promise<User> => {
         const accessToken = await getAccessTokenSilently();
-        const res = await fetch(`${API_BASE_URL}/api/my/user`, {
-            method: 'GET',
+
+        const response = await fetch(`${API_BASE_URL}/api/my/user`, {
+            method: "GET",
             headers: {
                 Authorization: `Bearer ${accessToken}`,
-                "Content-Type": "application/json"
-            }
-        })
-        if (!res.ok) {
-            throw new Error("Error Get Users")
+                "Content-Type": "application/json",
+            },
+        });
+
+        if (!response.ok) {
+            throw new Error("Failed to fetch user");
         }
 
-        return res.json()
-    }
+        return response.json();
+    };
 
-
-    const { data: currentUser, isLoading, error } = useQuery("getCurrentUser", getMyUserRequest)
+    const {
+        data: currentUser,
+        isLoading,
+        error,
+    } = useQuery("fetchCurrentUser", getMyUserRequest);
 
     if (error) {
-        toast.error(error.toString())
-        return
+        toast.error(error.toString());
     }
 
-    return { currentUser, isLoading }
-}
+    return { currentUser, isLoading };
+};
 
 
 
