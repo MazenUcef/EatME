@@ -1,3 +1,4 @@
+import { useCreateCheckoutSession } from "@/api/OrderApi";
 import { useGetRestaurant } from "@/api/RestaurantApi"
 import { CheckoutButton } from "@/components/CheckoutButton";
 import MenuItem from "@/components/MenuItem";
@@ -23,6 +24,9 @@ export type CartItem = {
 const DetailPage = () => {
     const { restaurantId } = useParams()
     const { restaurant, isLoading } = useGetRestaurant(restaurantId);
+    const { createCheckoutSession, isLoading: isCheckoutLoading } = useCreateCheckoutSession()
+
+
     const [cartItems, setCartItemns] = useState<CartItem[]>(() => {
         const storedCartItems = sessionStorage.getItem(`cartItems-${restaurantId}`);
         return storedCartItems ? JSON.parse(storedCartItems) : [];
@@ -65,8 +69,29 @@ const DetailPage = () => {
         })
     }
 
-    const onCheckout = (userFormData: userFormData) => {
-        console.log(userFormData);
+    const onCheckout = async (userFormData: userFormData) => {
+        if (!restaurant) {
+            return;
+        }
+
+        const checkoutData = {
+            cartItems: cartItems.map((cartItem) => ({
+                menuItemId: cartItem._id,
+                name: cartItem.name,
+                quantity: cartItem.quantity.toString(),
+            })),
+            restaurantId: restaurant._id,
+            deliveryDetails: {
+                name: userFormData.name,
+                addressLine1: userFormData.addressLine1,
+                city: userFormData.city,
+                country: userFormData.country,
+                email: userFormData.email as string,
+            },
+        };
+
+        const data = await createCheckoutSession(checkoutData as any);
+        window.location.href = data.url;
 
     }
 
@@ -101,6 +126,7 @@ const DetailPage = () => {
                             <CheckoutButton
                                 disabled={cartItems.length === 0}
                                 onCheckout={onCheckout}
+                                isLoading={isCheckoutLoading}
                             />
                         </CardFooter>
                     </Card>
